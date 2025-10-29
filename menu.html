@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Finca Las Ahijaderas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset básico */
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Dancing Script', cursive; background: #f9f9f9; color: #333;}
+
+        /* Navbar */
+        nav {background: #2e3a2b; padding: 20px; display: flex; justify-content: center;}
+        nav a {color: #fff; text-decoration: none; margin: 0 15px; font-size: 1.1em; transition: color 0.3s;}
+        nav a:hover {color: #a3b18a;}
+
+        /* Secciones */
+        section {padding: 60px 20px;}
+        section h2 {text-align: center; font-size: 2em; color: #2e3a2b; margin-bottom: 40px;}
+
+        /* Grid de platos */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: transform 0.3s;
+            max-width: 300px;
+        }
+
+        .card:hover {transform: scale(1.05);}
+        .card img {width: 100%; height: 200px; object-fit: cover;}
+        .card h3 {margin: 15px 0 10px 0; color: #2e3a2b;}
+        .card p {padding: 0 15px 15px 15px; color: #555; font-size: 0.95em;}
+
+        /* Modal pequeño */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 100; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.7); 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80%;
+            text-align: center;
+            overflow: auto;
+        }
+
+        .modal-content img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            margin-bottom: 15px;
+        }
+
+        .close {
+            position: absolute; 
+            top: 20px; 
+            right: 30px; 
+            font-size: 2em; 
+            color: #fff; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#aperitivos">Aperitivos</a>
+        <a href="#primeros">Primeros platos</a>
+        <a href="#segundos">Segundos platos</a>
+        <a href="#postres">Postres</a>
+    </nav>
+
+    <!-- Sección Aperitivos -->
+    <section id="aperitivos">
+        <h2>Aperitivos</h2>
+        <div class="grid">
+            <div class="card" onclick="openModal('muslitos.jpg', 'Muslitos Villaroy')">
+                <img src="muslitos.jpg" alt="Muslitos Villaroy">
+                <h3>Muslitos Villaroy</h3>
+                <p>Deliciosos muslitos rebozados al estilo clásico.</p>
+            </div>
+
+            <div class="card" onclick="openModal('brochetas.jpg', 'Brochetas')">
+                <img src="brochetas.jpg" alt="Brochetas">
+                <h3>Brochetas</h3>
+                <p>Brochetas variadas con un toque especial de la finca.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Primeros platos -->
+    <section id="primeros">
+        <h2>Primeros platos</h2>
+        <div class="grid">
+            <div class="card" onclick="openModal('tartar.jpg', 'Tartar de Atún sobre Aguacate')">
+                <img src="tartar.jpg" alt="Tartar de Atún sobre Aguacate">
+                <h3>Tartar de Atún sobre Aguacate</h3>
+                <p>Fresco tartar de atún acompañado de cremoso aguacate.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Segundos platos -->
+    <section id="segundos">
+        <h2>Segundos platos</h2>
+        <div class="grid">
+            <div class="card" onclick="openModal('pato.jpg', 'Pato')">
+                <img src="pato.jpg" alt="Pato">
+                <h3>Pato</h3>
+                <p>Jugoso pato asado con toque de hierbas aromáticas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Postres -->
+    <section id="postres">
+        <h2>Postres</h2>
+        <div class="grid">
+            <div class="card" onclick="openModal('torrija.jpeg', 'Torrija')">
+                <img src="torrija.jpeg" alt="Torrija">
+                <h3>Torrija</h3>
+                <p>Clásica torrija caramelizada con miel y canela.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modal-content">
+            <img id="modal-img" src="" alt="">
+            <h3 id="modal-title"></h3>
+        </div>
+    </div>
+
+    <script>
+        function openModal(src, title) {
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modal-img').src = src;
+            document.getElementById('modal-title').innerText = title;
+        }
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if(event.target == document.getElementById('modal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
